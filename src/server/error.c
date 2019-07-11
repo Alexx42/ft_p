@@ -1,10 +1,13 @@
 #include <server.h>
 
-
 int		error_usage(char *str)
 {
-	ft_putstr("usage: ");
-	ft_putstr(str);
-	ft_putstr(" <port>\n");
+	printf("usage: %s <port>\n", str);
+	return (EXIT_FAILURE);
+}
+
+int		error_program(char *str)
+{
+	printf("server: error: %s\n", str);
 	return (EXIT_FAILURE);
 }

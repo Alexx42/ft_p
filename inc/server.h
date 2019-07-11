@@ -10,8 +10,21 @@
 # include <arpa/inet.h>
 # include <netinet/in.h>
 
+# define PROTOCOL		"tcp"
+# define E_UNKWN		"an error occured"
+# define E_SOCKET		"socket failed"
+# define E_BIND			"bind failed"
 
-int		error_usage(char *str);
-int		create_server(int port);
+typedef struct			s_server
+{
+	int 				port;
+	int					sockfd;
+	struct protoent		*proto;
+	struct sockaddr_in	sin;
+}						t_server;
+
+int						error_usage(char *str);
+int						error_program(char *str);
+int						create_server(int port);
 
 # endif
