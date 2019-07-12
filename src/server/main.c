@@ -5,7 +5,6 @@ int			main(int ac, char **av)
 {
 	int status;
 
-	status = 0;
 	if (ac != 2)
 		status = error_usage(av[0]);
 	else

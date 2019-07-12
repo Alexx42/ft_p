@@ -11,7 +11,7 @@ CFLAGS += 		-I inc/ -I libft/
 LIBFT_PATH =		libft/
 LIBFT = 		libft/libft.a
 
-SRCS_CLIENT =		main.c
+SRCS_CLIENT =		main.c error.c create_client.c
 
 SRCS_SERVER =		main.c error.c create_server.c
 

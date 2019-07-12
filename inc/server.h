@@ -9,7 +9,7 @@
 # include <netdb.h>
 # include <arpa/inet.h>
 # include <netinet/in.h>
-# include <errno.h>
+# include <sys/types.h>
 
 # define PROTOCOL		"tcp"
 # define E_UNKWN		"an error occured"
@@ -22,10 +22,10 @@ typedef struct			s_server
 	int 				port;
 	int					sockfd;
 	int					csockfd;
+	unsigned int		clen;
 	struct protoent		*proto;
 	struct sockaddr_in	sin;
 	struct sockaddr_in	csin;
-	unsigned int		clen;
 }						t_server;
 
 int						error_usage(char *str);

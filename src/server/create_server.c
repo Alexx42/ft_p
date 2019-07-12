@@ -24,10 +24,7 @@ int			create_server(int port)
 	server.sin.sin_addr.s_addr = htonl(INADDR_ANY);
 	if ((bind(server.sockfd, (const struct sockaddr *)&server.sin,
 	sizeof(server.sin))) == -1)
-	{
-		perror(strerror(errno));
 		return (error_program(E_BIND));
-	}
 	status = launch_server(&server);
 	close(server.sockfd);
 	return (status);
