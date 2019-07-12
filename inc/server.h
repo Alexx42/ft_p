@@ -14,13 +14,17 @@
 # define E_UNKWN		"an error occured"
 # define E_SOCKET		"socket failed"
 # define E_BIND			"bind failed"
+# define E_ACCEPT		"accept failed"
 
 typedef struct			s_server
 {
 	int 				port;
 	int					sockfd;
+	int					csockfd;
 	struct protoent		*proto;
 	struct sockaddr_in	sin;
+	struct sockaddr_in	csin;
+	unsigned int		clen;
 }						t_server;
 
 int						error_usage(char *str);

@@ -1,8 +1,20 @@
 #include <server.h>
 
+int			launch_server(t_server *server)
+{
+	listen(server->sockfd, 42);
+	if ((server->csockfd = accept(server->sockfd, (struct sockaddr *)&server->csin,
+	&server->clen)) == -1)
+		return (error_program(E_ACCEPT));
+
+	close(server->csockfd);
+	return (EXIT_SUCCESS);
+}
+
 int			create_server(int port)
 {
 	t_server		server;
+	int				status;
 
 	if ((server.proto = getprotobyname(PROTOCOL)) == 0)
 		return (error_program(E_UNKWN));
@@ -14,6 +26,7 @@ int			create_server(int port)
 	if ((bind(server.sockfd, (const struct sockaddr *)&server.sin,
 	sizeof(server.sin))) == -1)
 		return (error_program(E_BIND));
+	status = launch_server(&server);
 	close(server.sockfd);
-	return (EXIT_SUCCESS);
+	return (status);
 }
