@@ -9,6 +9,7 @@
 # include <netdb.h>
 # include <arpa/inet.h>
 # include <netinet/in.h>
+# include <errno.h>
 
 # define PROTOCOL		"tcp"
 # define E_UNKWN		"an error occured"
