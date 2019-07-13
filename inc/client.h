@@ -10,9 +10,20 @@
 # include <arpa/inet.h>
 # include <libft.h>
 
+# define RED   "\x1B[31m"
+# define GRN   "\x1B[32m"
+# define YEL   "\x1B[33m"
+# define BLU   "\x1B[34m"
+# define MAG   "\x1B[35m"
+# define CYN   "\x1B[36m"
+# define WHT   "\x1B[37m"
+# define RESET "\x1B[0m"
+
 # define PROTOCOL		"tcp"
 # define E_UNKWN		"an error occured"
 # define E_CONNECT		"connect failed"
+# define E_READ			"read failed"
+# define E_RECV			"received failed"
 
 typedef struct			s_client
 {
@@ -24,5 +35,16 @@ typedef struct			s_client
 int						error_usage(char *str);
 int						error_program(char *str);
 int						create_client(char *addr, int port);
+
+int						handle_quit(t_client *client, char *arg);
+
+typedef int				handle_func(t_client *, char *);
+
+typedef struct			s_handle_fun
+{
+	char				*cmd;
+	handle_func			*fn;
+}						t_handle_fun;
+
 
 #endif

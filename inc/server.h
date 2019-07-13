@@ -32,4 +32,16 @@ int						error_usage(char *str);
 int						error_program(char *str);
 int						create_server(int port);
 
+int						handle_quit(t_server *server, char *arg);
+
+typedef int				handle_func(t_server *, char *);
+
+typedef struct			s_handle_fun
+{
+	char				*cmd;
+	handle_func			*fn;
+}						t_handle_fun;
+
+
+
 # endif
