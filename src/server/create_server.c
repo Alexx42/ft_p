@@ -1,6 +1,7 @@
 #include <server.h>
 
 const t_handle_fun		handle_fun[] = {
+	{"pwd", handle_pwd},
 	{"quit", handle_quit}
 };
 
@@ -9,7 +10,7 @@ static int			analyze_data(t_server *server, char *buff)
 	int			i;
 
 	i = -1;
-	while (++i < 1)
+	while (++i < 2)
 	{
 		if (!ft_strcmp(buff, handle_fun[i].cmd))
 			return (handle_fun[i].fn(server, buff));
@@ -43,10 +44,12 @@ static int			launch_server(t_server *server)
 	listen(server->sockfd, 42);
 	while (42)
 	{
+		ft_bzero((char *)&server->csin, sizeof(server->csin));
+		server->clen = 0;
 		if ((server->csockfd = accept(server->sockfd, (struct sockaddr *)&(server->csin),
 		&server->clen)) == -1)
 			exit (0);
-		printf("Connection accepted from %s:%d\n", inet_ntoa(server->csin.sin_addr), ntohs(server->csin.sin_port));
+		printf(MAG"A new client arrived from %s:%d\n" RESET, inet_ntoa(server->csin.sin_addr), ntohs(server->csin.sin_port));
 		if ((new_client = fork()) == 0)
 		{
 			close(server->sockfd);
@@ -67,12 +70,14 @@ int			create_server(int port)
 		return (error_program(E_UNKWN));
 	if ((server.sockfd = socket(AF_INET, SOCK_STREAM, server.proto->p_proto)) == -1)
 		return (error_program(E_SOCKET));
+	server.path = ft_strdup("/");
 	server.sin.sin_family = AF_INET;
 	server.sin.sin_port = htons(port);
 	server.sin.sin_addr.s_addr = htonl(INADDR_ANY);
 	if ((bind(server.sockfd, (const struct sockaddr *)&server.sin,
 	sizeof(server.sin))) == -1)
 		return (error_program(E_BIND));
+	ft_putendl(CYN "-----FTP server has been launched-----\n" RESET);
 	status = launch_server(&server);
 	close(server.sockfd);
 	return (status);

@@ -37,6 +37,7 @@ int						error_program(char *str);
 int						create_client(char *addr, int port);
 
 int						handle_quit(t_client *client, char *arg);
+int						handle_pwd(t_client *client, char *arg);
 
 typedef int				handle_func(t_client *, char *);
 

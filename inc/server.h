@@ -11,6 +11,15 @@
 # include <netinet/in.h>
 # include <sys/types.h>
 
+# define RED   "\x1B[31m"
+# define GRN   "\x1B[32m"
+# define YEL   "\x1B[33m"
+# define BLU   "\x1B[34m"
+# define MAG   "\x1B[35m"
+# define CYN   "\x1B[36m"
+# define WHT   "\x1B[37m"
+# define RESET "\x1B[0m"
+
 # define PROTOCOL		"tcp"
 # define E_UNKWN		"an error occured"
 # define E_SOCKET		"socket failed"
@@ -19,10 +28,10 @@
 
 typedef struct			s_server
 {
-	int 				port;
 	int					sockfd;
 	int					csockfd;
 	unsigned int		clen;
+	char				*path;
 	struct protoent		*proto;
 	struct sockaddr_in	sin;
 	struct sockaddr_in	csin;
@@ -33,6 +42,7 @@ int						error_program(char *str);
 int						create_server(int port);
 
 int						handle_quit(t_server *server, char *arg);
+int						handle_pwd(t_server *server, char *arg);
 
 typedef int				handle_func(t_server *, char *);
 

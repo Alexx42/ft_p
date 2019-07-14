@@ -5,15 +5,15 @@ OBJ = 			obj/
 SRC = 			src/
 
 CC = gcc
-CFLAGS += 		-Wall -Werror -Wextra
+CFLAGS += 		-g3 -Wall -Werror -Wextra
 CFLAGS += 		-I inc/ -I libft/
 
 LIBFT_PATH =		libft/
 LIBFT = 		libft/libft.a
 
-SRCS_CLIENT =		main.c error.c create_client.c handle_quit.c
+SRCS_CLIENT =		main.c error.c create_client.c handle_quit.c handle_pwd.c
 
-SRCS_SERVER =		main.c error.c create_server.c handle_quit.c
+SRCS_SERVER =		main.c error.c create_server.c handle_quit.c handle_pwd.c
 
 CLIENT_OBJ = $(addprefix $(OBJ)$(CLIENT)/, $(SRCS_CLIENT:.c=.o))
 SERVER_OBJ = $(addprefix $(OBJ)$(SERVER)/, $(SRCS_SERVER:.c=.o))
