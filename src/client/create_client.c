@@ -1,8 +1,9 @@
 #include <client.h>
 
 const t_handle_fun		handle_fun[] = {
-	{"pwd", handle_pwd},
-	{"quit", handle_quit}
+	{"ls", 2, handle_ls},
+	{"pwd", 3, handle_pwd},
+	{"quit", 4, handle_quit}
 };
 
 static int		analyze_data(t_client *client, char *buff)
@@ -10,9 +11,9 @@ static int		analyze_data(t_client *client, char *buff)
 	uint8_t		i;
 
 	i = -1;
-	while (++i < 2)
+	while (++i < 3)
 	{
-		if (!ft_strcmp(buff, handle_fun[i].cmd))
+		if (!ft_strncmp(buff, handle_fun[i].cmd, handle_fun[i].size))
 			return (handle_fun[i].fn(client, buff));
 	}
 	return (EXIT_FAILURE);
@@ -25,13 +26,13 @@ static int		launch_client(t_client *client)
 
 	while (42)
 	{
-		ft_bzero(buff, sizeof(buff));
+		ft_bzero(buff, 1024);
 		ft_putstr(RESET "Client -> ");
 		r = read(0, buff, sizeof(buff));
 		buff[r - 1] = '\0';
 		write(client->sockfd, buff, r);
 		analyze_data(client, buff);
-		if (recv(client->sockfd, buff, 7, 0) < 0)
+		if (recv(client->sockfd, buff, 8, 0) < 0)
 			return (error_program(E_RECV));
 		else if (!ft_strcmp("SUCCESS", buff))
 			ft_putendl(GRN "SUCCESS" RESET);

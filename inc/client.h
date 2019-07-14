@@ -38,12 +38,14 @@ int						create_client(char *addr, int port);
 
 int						handle_quit(t_client *client, char *arg);
 int						handle_pwd(t_client *client, char *arg);
+int						handle_ls(t_client *client, char *arg);
 
 typedef int				handle_func(t_client *, char *);
 
 typedef struct			s_handle_fun
 {
 	char				*cmd;
+	uint8_t				size;
 	handle_func			*fn;
 }						t_handle_fun;
 

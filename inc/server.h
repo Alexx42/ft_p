@@ -10,6 +10,7 @@
 # include <arpa/inet.h>
 # include <netinet/in.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
@@ -32,6 +33,7 @@ typedef struct			s_server
 	int					csockfd;
 	unsigned int		clen;
 	char				*path;
+	char				intial_path[100];
 	struct protoent		*proto;
 	struct sockaddr_in	sin;
 	struct sockaddr_in	csin;
@@ -43,12 +45,17 @@ int						create_server(int port);
 
 int						handle_quit(t_server *server, char *arg);
 int						handle_pwd(t_server *server, char *arg);
+int						handle_ls(t_server *client, char *arg);
+
+
+int						exec_cmd(char *cmd, char **arg, t_server *server);
 
 typedef int				handle_func(t_server *, char *);
 
 typedef struct			s_handle_fun
 {
 	char				*cmd;
+	uint8_t				size;
 	handle_func			*fn;
 }						t_handle_fun;
 
