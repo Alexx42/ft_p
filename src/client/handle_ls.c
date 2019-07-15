@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 17:57:17 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/14 17:46:37 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/14 18:11:43 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ int				handle_ls(t_client *client, char *arg)
 	if (connect(newc.sockfd, (const struct sockaddr *)&newc.sin, sizeof(newc.sin)) == -1)
 		return (error_program(E_CONNECT));
 	while ((r = read(newc.sockfd, buf, sizeof(buf))) > 0)
-	{
-		write(client->sockfd, buf, r);
-	}
+		write(1, buf, r);
 	close(newc.sockfd);
 	return (EXIT_SUCCESS);
 }

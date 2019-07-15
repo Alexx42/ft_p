@@ -34,7 +34,7 @@ typedef struct			s_server
 	int					csockfd;
 	unsigned int		clen;
 	char				*path;
-	char				intial_path[100];
+	char				intial_path[1024];
 	struct protoent		*proto;
 	struct sockaddr_in	sin;
 	struct sockaddr_in	csin;
@@ -53,6 +53,8 @@ int						exec_cmd(char *cmd, char **arg,
 						t_server *server, t_server *newc);
 
 int						init_connection(t_server *server);
+
+int						verify_permission(t_server *server, char **arr);
 
 typedef int				handle_func(t_server *, char *);
 
