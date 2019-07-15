@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/15 15:58:53 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/07/15 15:59:37 by ale-goff         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SERVER_H
 # define SERVER_H
 
@@ -49,22 +61,19 @@ int						handle_pwd(t_server *server, char *arg);
 int						handle_ls(t_server *client, char *arg);
 int						handle_put(t_server *server, char *arg);
 
-
 int						exec_cmd(char *cmd, char **arg, t_server *newc);
 
 int						init_connection(t_server *server);
 
 int						verify_permission(t_server *server, char **arr);
 
-typedef int				handle_func(t_server *, char *);
+typedef int				t_handle_func(t_server *server, char *arg);
 
 typedef struct			s_handle_fun
 {
 	char				*cmd;
 	uint8_t				size;
-	handle_func			*fn;
+	t_handle_func		*fn;
 }						t_handle_fun;
 
-
-
-# endif
+#endif

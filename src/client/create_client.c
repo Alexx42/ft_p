@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:32:23 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/14 23:38:23 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 14:28:43 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ static void		print_status(int status)
 		ft_putendl(RED": The command you entered is invalid\n"RESET);
 	if (status == RECV)
 		ft_putendl(RED": The command receive failed\n"RESET);
+	if (status == CON)
+		ft_putendl(RED": The command connect failed\n"RESET);
+	if (status == ARG)
+		ft_putendl(RED": Invalid number of arguments\n"RESET);
+	if (status == FILE_ERROR)
+		ft_putendl(RED": Couldn't open the file.\n"RESET);
 }
 
 static int		launch_client(t_client *client)
@@ -75,6 +81,7 @@ int				create_client(char *addr, int port)
 	if ((client.proto = getprotobyname(PROTOCOL)) == 0)
 		return (error_program(E_UNKWN));
 	ft_bzero((char *)&client.sin, sizeof(client.sin));
+	getcwd(client.path, sizeof(client.path));
 	client.sockfd = socket(AF_INET, SOCK_STREAM, client.proto->p_proto);
 	client.sin.sin_family = AF_INET;
 	client.sin.sin_port = htons(port);
@@ -82,6 +89,8 @@ int				create_client(char *addr, int port)
 	if (connect(client.sockfd, (const struct sockaddr *)&client.sin,
 	sizeof(client.sin)) == -1)
 		return (error_program(E_CONNECT));
+	mkdir(ft_strcat(client.path, "/clientdata"), 0744);
+	chdir(client.path);
 	status = launch_client(&client);
 	close(client.sockfd);
 	return (status);

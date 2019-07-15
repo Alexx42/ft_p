@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/15 15:57:35 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/07/15 15:58:36 by ale-goff         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CLIENT_H
 # define CLIENT_H
 
@@ -9,6 +21,8 @@
 # include <netdb.h>
 # include <arpa/inet.h>
 # include <libft.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
@@ -21,7 +35,10 @@
 
 # define SUCCESS 227
 # define RECV	 412
+# define CON	 413
+# define ARG	 400
 # define UNKWN_CMD 150
+# define FILE_ERROR 401
 
 # define PROTOCOL		"tcp"
 # define E_UNKWN		"an error occured"
@@ -32,6 +49,7 @@
 typedef struct			s_client
 {
 	int					sockfd;
+	char				path[1024];
 	struct sockaddr_in	sin;
 	struct protoent		*proto;
 }						t_client;
@@ -48,14 +66,13 @@ int						handle_put(t_client *client, char *arg);
 int						init_connection(t_client *client,
 						unsigned short port, unsigned long s_addr);
 
-typedef int				handle_func(t_client *, char *);
+typedef int				t_handle_func(t_client *client, char *arg);
 
 typedef struct			s_handle_fun
 {
 	char				*cmd;
 	uint8_t				size;
-	handle_func			*fn;
+	t_handle_func		*fn;
 }						t_handle_fun;
-
 
 #endif
