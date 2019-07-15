@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:32:23 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/14 23:33:09 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/14 23:38:23 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 const t_handle_fun		g_handle_fun[] = {
 	{"ls", 2, handle_ls},
 	{"pwd", 3, handle_pwd},
+	{"put", 3, handle_put},
 	{"quit", 4, handle_quit}
 };
 

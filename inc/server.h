@@ -47,6 +47,7 @@ int						create_server(int port);
 int						handle_quit(t_server *server, char *arg);
 int						handle_pwd(t_server *server, char *arg);
 int						handle_ls(t_server *client, char *arg);
+int						handle_put(t_server *server, char *arg);
 
 
 int						exec_cmd(char *cmd, char **arg, t_server *newc);
