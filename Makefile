@@ -11,9 +11,9 @@ CFLAGS += 		-I inc/ -I libft/
 LIBFT_PATH =		libft/
 LIBFT = 		libft/libft.a
 
-SRCS_CLIENT =		main.c error.c create_client.c handle_quit.c handle_pwd.c handle_ls.c
+SRCS_CLIENT =		main.c error.c create_client.c handle_quit.c handle_pwd.c handle_ls.c init_connection.c
 
-SRCS_SERVER =		main.c error.c exec_cmd.c create_server.c handle_quit.c handle_pwd.c handle_ls.c
+SRCS_SERVER =		main.c error.c exec_cmd.c create_server.c handle_quit.c handle_pwd.c handle_ls.c init_connection.c
 
 CLIENT_OBJ = $(addprefix $(OBJ)$(CLIENT)/, $(SRCS_CLIENT:.c=.o))
 SERVER_OBJ = $(addprefix $(OBJ)$(SERVER)/, $(SRCS_SERVER:.c=.o))

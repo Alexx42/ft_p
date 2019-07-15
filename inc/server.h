@@ -11,6 +11,7 @@
 # include <netinet/in.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <fcntl.h>
 
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
@@ -48,7 +49,10 @@ int						handle_pwd(t_server *server, char *arg);
 int						handle_ls(t_server *client, char *arg);
 
 
-int						exec_cmd(char *cmd, char **arg, t_server *server);
+int						exec_cmd(char *cmd, char **arg,
+						t_server *server, t_server *newc);
+
+int						init_connection(t_server *server);
 
 typedef int				handle_func(t_server *, char *);
 

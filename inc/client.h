@@ -40,6 +40,9 @@ int						handle_quit(t_client *client, char *arg);
 int						handle_pwd(t_client *client, char *arg);
 int						handle_ls(t_client *client, char *arg);
 
+int						init_connection(t_client *client,
+						unsigned short port, unsigned long s_addr);
+
 typedef int				handle_func(t_client *, char *);
 
 typedef struct			s_handle_fun
