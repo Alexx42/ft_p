@@ -19,6 +19,10 @@
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
 
+# define SUCCESS 227
+# define RECV	 412
+# define UNKWN_CMD 150
+
 # define PROTOCOL		"tcp"
 # define E_UNKWN		"an error occured"
 # define E_CONNECT		"connect failed"

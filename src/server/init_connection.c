@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 15:07:57 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/14 16:29:06 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/14 23:36:04 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int				init_connection(t_server *server)
 	server->sin.sin_addr.s_addr = htonl(INADDR_ANY);
 	if ((bind(server->sockfd, (const struct sockaddr *)&server->sin,
 	sizeof(struct sockaddr))) == -1)
-		return error_program(E_BIND);
+		return (error_program(E_BIND));
 	listen(server->sockfd, 0);
 	len = sizeof(struct sockaddr_in);
 	getsockname(server->sockfd, (struct sockaddr *)&server->sin, &len);

@@ -49,8 +49,7 @@ int						handle_pwd(t_server *server, char *arg);
 int						handle_ls(t_server *client, char *arg);
 
 
-int						exec_cmd(char *cmd, char **arg,
-						t_server *server, t_server *newc);
+int						exec_cmd(char *cmd, char **arg, t_server *newc);
 
 int						init_connection(t_server *server);
 

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_server.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/14 23:33:25 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/07/14 23:34:26 by ale-goff         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <server.h>
 
-const t_handle_fun	handle_fun[] = {
+const t_handle_fun	g_handle_fun[] = {
 	{"ls", 2, handle_ls},
 	{"pwd", 3, handle_pwd},
 	{"quit", 4, handle_quit}
@@ -13,18 +25,17 @@ static int			analyze_data(t_server *server, char *buff)
 	i = -1;
 	while (++i < 3)
 	{
-		if (!ft_strncmp(buff, handle_fun[i].cmd, handle_fun[i].size))
-			return (handle_fun[i].fn(server, buff));
+		if (!ft_strncmp(buff, g_handle_fun[i].cmd, g_handle_fun[i].size))
+			return (g_handle_fun[i].fn(server, buff));
 	}
 	return (EXIT_FAILURE);
 }
 
 static int			receive_data(t_server *server)
 {
-	char	buff[1024];
-	ssize_t 	r;
+	char		buff[1024];
+	ssize_t		r;
 
-	r = 0;
 	while (42)
 	{
 		ft_bzero(buff, 1024);
@@ -49,7 +60,7 @@ static int			launch_server(t_server *server)
 		if ((server->csockfd = accept(server->sockfd,
 		(struct sockaddr *)&(server->csin),
 		&server->clen)) == -1)
-			exit (0);
+			exit(0);
 		printf(MAG"A new client arrived from %s:%d\n"RESET,
 		inet_ntoa(server->csin.sin_addr), ntohs(server->csin.sin_port));
 		if ((new_client = fork()) == 0)
@@ -70,7 +81,8 @@ int					create_server(int port)
 
 	if ((server.proto = getprotobyname(PROTOCOL)) == 0)
 		return (error_program(E_UNKWN));
-	if ((server.sockfd = socket(AF_INET, SOCK_STREAM, server.proto->p_proto)) == -1)
+	if ((server.sockfd = socket(AF_INET, SOCK_STREAM,
+	server.proto->p_proto)) == -1)
 		return (error_program(E_SOCKET));
 	getcwd(server.intial_path, sizeof(server.intial_path));
 	server.path = ft_strdup("/");

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_client.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/14 23:32:23 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/07/14 23:33:09 by ale-goff         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <client.h>
 
-const t_handle_fun		handle_fun[] = {
+const t_handle_fun		g_handle_fun[] = {
 	{"ls", 2, handle_ls},
 	{"pwd", 3, handle_pwd},
 	{"quit", 4, handle_quit}
@@ -13,16 +25,27 @@ static int		analyze_data(t_client *client, char *buff)
 	i = -1;
 	while (++i < 3)
 	{
-		if (!ft_strncmp(buff, handle_fun[i].cmd, handle_fun[i].size))
-			return (handle_fun[i].fn(client, buff));
+		if (!ft_strncmp(buff, g_handle_fun[i].cmd, g_handle_fun[i].size))
+			return (g_handle_fun[i].fn(client, buff));
 	}
-	return (EXIT_FAILURE);
+	return (UNKWN_CMD);
+}
+
+static void		print_status(int status)
+{
+	if (status == SUCCESS)
+		ft_putendl(GRN": The command has been executed successfully\n"RESET);
+	if (status == UNKWN_CMD)
+		ft_putendl(RED": The command you entered is invalid\n"RESET);
+	if (status == RECV)
+		ft_putendl(RED": The command receive failed\n"RESET);
 }
 
 static int		launch_client(t_client *client)
 {
 	char		buff[1024];
 	size_t		r;
+	int			status;
 
 	while (42)
 	{
@@ -31,13 +54,14 @@ static int		launch_client(t_client *client)
 		r = read(0, buff, sizeof(buff));
 		buff[r - 1] = '\0';
 		write(client->sockfd, buff, r);
-		analyze_data(client, buff);
+		status = analyze_data(client, buff);
 		if (recv(client->sockfd, buff, 8, 0) < 0)
 			return (error_program(E_RECV));
 		else if (!ft_strcmp("SUCCESS", buff))
-			ft_putendl(GRN "SUCCESS" RESET);
+			ft_putstr(GRN "SUCCESS" RESET);
 		else
-			ft_putendl(RED "FAILURE" RESET);
+			ft_putstr(RED "FAILURE" RESET);
+		print_status(status);
 	}
 	return (EXIT_SUCCESS);
 }
