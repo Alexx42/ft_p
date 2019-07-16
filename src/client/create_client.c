@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:32:23 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 22:45:38 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/16 12:22:44 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static int		launch_client(t_client *client)
 			buff[r - 1] = '\0';
 		else
 			break ;
-		write(client->sockfd, &r, sizeof(ssize_t));
 		write(client->sockfd, buff, r);
 		status = analyze_data(client, buff);
 		if (recv(client->sockfd, buff, 8, 0) < 0)
@@ -99,7 +98,6 @@ int				create_client(char *addr, int port)
 	client.len = ft_strlen(client.path);
 	chdir(client.path);
 	status = launch_client(&client);
-	write(client.sockfd, "quit", 4);
 	handle_quit(&client, NULL);
 	close(client.sockfd);
 	return (status);
