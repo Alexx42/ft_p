@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/14 18:16:17 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 20:29:28 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/07/15 19:15:27 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/07/15 20:29:33 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <server.h>
+#include <client.h>
 
 static void		cut_path_helper2(char *arr, int s, int e)
 {
@@ -52,18 +52,17 @@ static void		cut_path(char *arr)
 	}
 }
 
-int				verify_permission(t_server *server, char **arr)
+int				verify_permission(t_client *client, char **arr)
 {
 	int		i;
 	int		count;
 
 	i = 0;
-	(void)server;
 	while (arr[++i])
 	{
 		cut_path(arr[1]);
 		count = count_directory_below(arr[1]);
-		if (count > count_directory(server->path))
+		if (count > count_directory(client->init_path))
 			arr[i] = "./";
 	}
 	return (EXIT_SUCCESS);

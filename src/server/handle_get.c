@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 16:02:47 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 18:30:09 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 20:31:37 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ static int		handle_get_helper(t_server *server, char **arr)
 
 	if (!arr[1] || arr[2])
 		return (EXIT_FAILURE);
+	if (!ft_strcmp(arr[1], "./") && send(server->csockfd, "401", 4, 0))
+		return (EXIT_FAILURE);
 	if ((fd = open(ft_strcat(server->intial_path, arr[1]), O_RDONLY)) == -1)
 	{
 		send(server->csockfd, "401", 4, 0);
+		server->intial_path[server->len] = '\0';
 		return (EXIT_FAILURE);
 	}
 	server->intial_path[server->len] = '\0';
@@ -44,6 +47,7 @@ int				handle_get(t_server *server, char *arg)
 	char		**arr;
 
 	arr = ft_strsplit(arg, ' ');
+	verify_permission(server, arr);
 	status = handle_get_helper(server, arr);
 	if (status == EXIT_SUCCESS)
 		printf(GRN"The command get has been executed by a client\n"RESET);

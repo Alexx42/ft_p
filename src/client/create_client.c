@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:32:23 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 16:28:40 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 20:53:54 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 const t_handle_fun		g_handle_fun[] = {
 	{"ls", 2, handle_ls},
+	{"cd", 2, handle_cd},
 	{"get", 3, handle_get},
 	{"pwd", 3, handle_pwd},
 	{"put", 3, handle_put},
@@ -25,7 +26,7 @@ static int		analyze_data(t_client *client, char *buff)
 	uint8_t		i;
 
 	i = -1;
-	while (++i < 5)
+	while (++i < 6)
 	{
 		if (!ft_strncmp(buff, g_handle_fun[i].cmd, g_handle_fun[i].size))
 			return (g_handle_fun[i].fn(client, buff));
@@ -47,6 +48,8 @@ static void		print_status(int status)
 		ft_putendl(RED": Invalid number of arguments\n"RESET);
 	if (status == FILE_ERROR)
 		ft_putendl(RED": Couldn't open the file.\n"RESET);
+	if (status == PATH)
+		ft_putendl(RED": Invalid path.\n"RESET);
 }
 
 static int		launch_client(t_client *client)
@@ -93,7 +96,9 @@ int				create_client(char *addr, int port)
 	if (connect(client.sockfd, (const struct sockaddr *)&client.sin,
 	sizeof(client.sin)) == -1)
 		return (error_program(E_CONNECT));
-	mkdir(ft_strcat(client.path, "/clientdata"), 0744);
+	mkdir(ft_strcat(client.path, "/clientdata/"), 0744);
+	ft_strcat(client.init_path, "/");
+	client.len = ft_strlen(client.path);
 	chdir(client.path);
 	status = launch_client(&client);
 	write(client.sockfd, "quit", 4);

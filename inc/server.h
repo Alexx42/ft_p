@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:58:53 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 18:22:41 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 20:37:59 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ int						create_server(int port);
 
 int						handle_quit(t_server *server, char *arg);
 int						handle_pwd(t_server *server, char *arg);
-int						handle_ls(t_server *client, char *arg);
+int						handle_ls(t_server *server, char *arg);
 int						handle_put(t_server *server, char *arg);
-int						handle_get(t_server *client, char *arg);
+int						handle_get(t_server *server, char *arg);
+int						handle_cd(t_server *server, char *arg);
 
 int						exec_cmd(char *cmd, char **arg, t_server *newc);
 
@@ -69,6 +70,9 @@ int						init_connection(t_server *server);
 void					accept_con(t_server *server, t_server *newc);
 
 int						verify_permission(t_server *server, char **arr);
+
+int						count_directory_below(char *arr);
+int						count_directory(char *arr);
 
 typedef int				t_handle_func(t_server *server, char *arg);
 

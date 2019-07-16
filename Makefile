@@ -1,19 +1,19 @@
-CLIENT = 		client
-SERVER = 		server
+CLIENT = 			client
+SERVER = 			server
 
-OBJ = 			obj/
-SRC = 			src/
+OBJ = 				obj/
+SRC = 				src/
 
 CC = gcc
-CFLAGS += 		-Wall -Werror -Wextra
-CFLAGS += 		-I inc/ -I libft/
+CFLAGS += 			-Wall -Werror -Wextra
+CFLAGS += 			-I inc/ -I libft/
 
 LIBFT_PATH =		libft/
-LIBFT = 		libft/libft.a
+LIBFT = 			libft/libft.a
 
-SRCS_CLIENT =		main.c error.c create_client.c handle_quit.c handle_pwd.c handle_ls.c init_connection.c handle_put.c handle_get.c
+SRCS_CLIENT =		main.c error.c create_client.c handle_quit.c handle_pwd.c handle_ls.c init_connection.c handle_put.c handle_get.c verify_permission.c count.c handle_cd.c
 
-SRCS_SERVER =		main.c error.c exec_cmd.c create_server.c handle_quit.c handle_pwd.c handle_ls.c init_connection.c handle_put.c handle_get.c
+SRCS_SERVER =		main.c error.c exec_cmd.c create_server.c handle_quit.c handle_pwd.c handle_ls.c init_connection.c handle_put.c handle_get.c verify_permission.c count.c handle_cd.c
 
 CLIENT_OBJ = $(addprefix $(OBJ)$(CLIENT)/, $(SRCS_CLIENT:.c=.o))
 SERVER_OBJ = $(addprefix $(OBJ)$(SERVER)/, $(SRCS_SERVER:.c=.o))

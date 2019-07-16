@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 16:02:22 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 17:59:31 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 18:55:27 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@ static int		handle_get_helper(char **arr, t_client *client)
 	if (ft_atoi(buf) != SUCCESS)
 		return (FILE_ERROR);
 	receive_data(&newc, client);
-	if ((fd = open(arr[1], O_RDONLY | O_CREAT | O_APPEND |
-	O_CREAT, 0644)) == -1)
+	if ((fd = open(ft_strcat(client->path, arr[1]), O_RDWR | O_CREAT |
+	O_APPEND | O_CREAT, 0644)) == -1)
+	{
+		client->path[client->len] = '\0';
 		return (FILE_ERROR);
+	}
+	client->path[client->len] = '\0';
 	while ((len = read(newc.sockfd, buf, sizeof(buf))) > 0)
 		write(fd, buf, len);
 	close(newc.sockfd);

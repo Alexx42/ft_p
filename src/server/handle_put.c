@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:39:39 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 18:01:46 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 18:38:43 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,15 @@ static int				handle_put_server(t_server *server, char **arr)
 		return (EXIT_FAILURE);
 	init_connection(&newc);
 	accept_con(server, &newc);
-	if ((fd = open(arr[1], O_RDWR | O_CREAT | O_TRUNC | O_APPEND, 0644)) == -1)
+	if ((fd = open(ft_strcat(server->path, arr[1]), O_RDWR | O_CREAT
+	| O_TRUNC | O_APPEND, 0644)) == -1)
+	{
+		server->intial_path[server->len] = '\0';
 		return (EXIT_FAILURE);
+	}
+	server->intial_path[server->len] = '\0';
 	while ((size = read(newc.csockfd, buf, sizeof(buf))) > 0)
 		write(fd, buf, size);
-	printf(GRN"The command put has been executed by a client\n"RESET);
 	close(fd);
 	close(newc.sockfd);
 	return (EXIT_SUCCESS);
@@ -44,6 +48,10 @@ int						handle_put(t_server *server, char *arg)
 
 	arr = ft_strsplit(arg, ' ');
 	status = handle_put_server(server, arr);
+	if (status == EXIT_SUCCESS)
+		printf(GRN"The command put has been executed by a client\n"RESET);
+	else
+		printf(RED"The command put has encountered an error\n"RESET);
 	free(arr);
 	return (status);
 }
