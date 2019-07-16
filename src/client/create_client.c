@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:32:23 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 14:28:43 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 16:28:40 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 const t_handle_fun		g_handle_fun[] = {
 	{"ls", 2, handle_ls},
+	{"get", 3, handle_get},
 	{"pwd", 3, handle_pwd},
 	{"put", 3, handle_put},
 	{"quit", 4, handle_quit}
@@ -24,7 +25,7 @@ static int		analyze_data(t_client *client, char *buff)
 	uint8_t		i;
 
 	i = -1;
-	while (++i < 3)
+	while (++i < 5)
 	{
 		if (!ft_strncmp(buff, g_handle_fun[i].cmd, g_handle_fun[i].size))
 			return (g_handle_fun[i].fn(client, buff));
@@ -59,7 +60,10 @@ static int		launch_client(t_client *client)
 		ft_bzero(buff, 1024);
 		ft_putstr(RESET "Client -> ");
 		r = read(0, buff, sizeof(buff));
-		buff[r - 1] = '\0';
+		if (r > 0)
+			buff[r - 1] = '\0';
+		else
+			break ;
 		write(client->sockfd, buff, r);
 		status = analyze_data(client, buff);
 		if (recv(client->sockfd, buff, 8, 0) < 0)
@@ -92,6 +96,8 @@ int				create_client(char *addr, int port)
 	mkdir(ft_strcat(client.path, "/clientdata"), 0744);
 	chdir(client.path);
 	status = launch_client(&client);
+	write(client.sockfd, "quit", 4);
+	handle_quit(&client, NULL);
 	close(client.sockfd);
 	return (status);
 }

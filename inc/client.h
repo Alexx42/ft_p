@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 15:58:36 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 16:06:13 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int						handle_quit(t_client *client, char *arg);
 int						handle_pwd(t_client *client, char *arg);
 int						handle_ls(t_client *client, char *arg);
 int						handle_put(t_client *client, char *arg);
+int						handle_get(t_client *client, char *arg);
 
-int						init_connection(t_client *client,
-						unsigned short port, unsigned long s_addr);
+int						receive_data(t_client *newc, t_client *client);
 
 typedef int				t_handle_func(t_client *client, char *arg);
 

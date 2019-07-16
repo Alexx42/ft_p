@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:33:25 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 14:45:15 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 18:23:45 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 const t_handle_fun	g_handle_fun[] = {
 	{"ls", 2, handle_ls},
+	{"get", 3, handle_get},
 	{"put", 3, handle_put},
 	{"pwd", 3, handle_pwd},
 	{"quit", 4, handle_quit}
@@ -24,7 +25,7 @@ static int			analyze_data(t_server *server, char *buff)
 	int			i;
 
 	i = -1;
-	while (++i < 4)
+	while (++i < 5)
 	{
 		if (!ft_strncmp(buff, g_handle_fun[i].cmd, g_handle_fun[i].size))
 			return (g_handle_fun[i].fn(server, buff));
@@ -94,6 +95,7 @@ int					create_server(int port)
 	sizeof(server.sin))) == -1)
 		return (error_program(E_BIND));
 	mkdir(ft_strcat(server.intial_path, "/runtime"), 0777);
+	server.len = ft_strlen(server.intial_path);
 	chdir(server.intial_path);
 	ft_putendl(CYN "-----FTP server has been launched-----\n" RESET);
 	status = launch_server(&server);
