@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 16:02:22 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 18:55:27 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:06:16 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int				handle_get(t_client *client, char *arg)
 
 	arr = ft_strsplit(arg, ' ');
 	status = handle_get_helper(arr, client);
-	free(arr);
+	free_arr(arr);
 	return (status);
 }

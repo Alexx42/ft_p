@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 18:16:17 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 20:29:28 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:01:37 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		cut_path_helper(char *arr, int i)
 		cut_path_helper2(arr, i_tmp, i);
 }
 
-static void		cut_path(char *arr)
+void			cut_path(char *arr)
 {
 	int			i;
 
@@ -63,7 +63,9 @@ int				verify_permission(t_server *server, char **arr)
 	{
 		cut_path(arr[1]);
 		count = count_directory_below(arr[1]);
-		if (count > count_directory(server->path))
+		if (arr[i][0] == '/')
+			arr[i] += 1;
+		else if (count > count_directory(server->path))
 			arr[i] = "./";
 	}
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 19:15:27 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 20:29:33 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 21:35:51 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ int				verify_permission(t_client *client, char **arr)
 	{
 		cut_path(arr[1]);
 		count = count_directory_below(arr[1]);
-		if (count > count_directory(client->init_path))
+		if (arr[i][0] == '/')
+			arr[i] += 1;
+		else if (count > count_directory(client->init_path))
 			arr[i] = "./";
 	}
 	return (EXIT_SUCCESS);

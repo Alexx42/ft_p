@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:32:33 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 21:07:48 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:05:26 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int				handle_cd_helper(t_server *server, char **arr)
 {
+	int		i;
+
 	if (chdir(arr[1]) != 0)
 	{
 		send(server->csockfd, "401", 4, 0);
@@ -26,6 +28,13 @@ static int				handle_cd_helper(t_server *server, char **arr)
 	ft_strcat(server->intial_path, "/");
 	ft_strcat(server->path, arr[1]);
 	ft_strcat(server->path, "/");
+	cut_path(server->intial_path);
+	cut_path(server->path);
+	i = -1;
+	while (server->path[++i] == '/')
+		;
+	if (i == (int)ft_strlen(server->path))
+		server->path = "/";
 	return (EXIT_SUCCESS);
 }
 
@@ -41,6 +50,6 @@ int						handle_cd(t_server *server, char *arg)
 		printf(GRN"The command cd has been executed by a client\n"RESET);
 	else
 		printf(RED"The command cd has encountered an error\n"RESET);
-	free(arr);
+	free_arr(arr);
 	return (status);
 }

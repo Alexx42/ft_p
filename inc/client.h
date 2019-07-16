@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 20:32:18 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:04:31 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int						verify_permission(t_client *client, char **arr);
 
 int						count_directory_below(char *arr);
 int						count_directory(char *arr);
+void					free_arr(char **arr);
 
 typedef int				t_handle_func(t_client *client, char *arg);
 

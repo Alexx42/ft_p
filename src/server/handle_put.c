@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:39:39 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 18:38:43 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:05:03 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int				handle_put_server(t_server *server, char **arr)
 		return (EXIT_FAILURE);
 	init_connection(&newc);
 	accept_con(server, &newc);
-	if ((fd = open(ft_strcat(server->path, arr[1]), O_RDWR | O_CREAT
+	if ((fd = open(ft_strcat(server->intial_path, arr[1]), O_RDWR | O_CREAT
 	| O_TRUNC | O_APPEND, 0644)) == -1)
 	{
 		server->intial_path[server->len] = '\0';
@@ -52,6 +52,6 @@ int						handle_put(t_server *server, char *arg)
 		printf(GRN"The command put has been executed by a client\n"RESET);
 	else
 		printf(RED"The command put has encountered an error\n"RESET);
-	free(arr);
+	free_arr(arr);
 	return (status);
 }

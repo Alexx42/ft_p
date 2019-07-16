@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:32:45 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 20:50:56 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:04:56 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int						handle_cd(t_client *client, char *arg)
 
 	arr = ft_strsplit(arg, ' ');
 	status = handle_cd_helper(client, arr);
-	free(arr);
+	free_arr(arr);
 	return (status);
 }

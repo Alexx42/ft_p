@@ -6,19 +6,18 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 16:50:18 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/14 23:30:12 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:13:26 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <server.h>
 
-int			handle_pwd(t_server *server, char *arg)
+static int	handle_pwd_helper(t_server *server, char **arr)
 {
 	t_server	newc;
-	char		**arr;
+	int			status;
 
-	(void)arg;
-	arr = ft_strsplit(arg, ' ');
+	status = EXIT_SUCCESS;
 	init_connection(&newc);
 	send(server->csockfd, &newc.sin.sin_port,
 	sizeof(newc.sin.sin_port), 0);
@@ -28,12 +27,25 @@ int			handle_pwd(t_server *server, char *arg)
 	&newc.clen);
 	if (!arr[1] && (send(newc.csockfd, server->path,
 	ft_strlen(server->path), 0)) == -1)
-		return (EXIT_FAILURE);
+		status = EXIT_FAILURE;
 	else if (arr[1])
-		send(newc.csockfd, "pwd: too many arguments", 23, 0);
-	printf(GRN"The command pwd has been executed by a client\n"RESET);
-	free(arr);
+		status = EXIT_FAILURE;
 	close(newc.sockfd);
 	close(newc.csockfd);
-	return (EXIT_SUCCESS);
+	return (status);
+}
+
+int			handle_pwd(t_server *server, char *arg)
+{
+	char		**arr;
+	int	 		status;
+
+	arr = ft_strsplit(arg, ' ');
+	status = handle_pwd_helper(server, arr);
+	if (status == EXIT_SUCCESS)
+		printf(GRN"The command pwd has been executed by a client\n"RESET);
+	else
+		printf(RED"The command pwd has encountered an error\n"RESET);
+	free_arr(arr);
+	return (status);
 }

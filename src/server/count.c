@@ -6,11 +6,24 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:28:41 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 20:29:47 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:06:52 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <server.h>
+
+void	free_arr(char **arr)
+{
+	int		i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
 
 int		count_directory_below(char *arr)
 {

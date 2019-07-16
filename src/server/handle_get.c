@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 16:02:47 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 20:31:37 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:05:09 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ int				handle_get(t_server *server, char *arg)
 		printf(GRN"The command get has been executed by a client\n"RESET);
 	else
 		printf(GRN"The command get has encountered an error\n"RESET);
-	free(arr);
+	free_arr(arr);
 	return (status);
 }
