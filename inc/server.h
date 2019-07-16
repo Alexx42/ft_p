@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:58:53 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 22:04:36 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:29:32 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int						exec_cmd(char *cmd, char **arg, t_server *newc);
 
 int						init_connection(t_server *server);
 void					accept_con(t_server *server, t_server *newc);
-
 int						verify_permission(t_server *server, char **arr);
 
 int						count_directory_below(char *arr);

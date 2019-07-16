@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:32:23 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 21:15:16 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:29:53 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,7 @@ int				create_client(char *addr, int port)
 		return (error_program(E_UNKWN));
 	ft_bzero((char *)&client.sin, sizeof(client.sin));
 	getcwd(client.path, sizeof(client.path));
-	client.sockfd = socket(AF_INET, SOCK_STREAM, client.proto->p_proto);
-	client.sin.sin_family = AF_INET;
-	client.sin.sin_port = htons(port);
-	client.sin.sin_addr.s_addr = inet_addr(addr);
+	init_addr(&client, addr, port);
 	if (connect(client.sockfd, (const struct sockaddr *)&client.sin,
 	sizeof(client.sin)) == -1)
 		return (error_program(E_CONNECT));

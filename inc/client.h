@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 15:57:35 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 22:04:31 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:29:37 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct			s_client
 	char				path[1024];
 	char				init_path[1024];
 	size_t				len;
+	struct hostent		*hp;
 	struct sockaddr_in	sin;
 	struct protoent		*proto;
 }						t_client;
@@ -69,6 +70,7 @@ int						handle_get(t_client *client, char *arg);
 int						handle_cd(t_client *client, char *arg);
 
 int						receive_data(t_client *newc, t_client *client);
+int						init_addr(t_client *client, char *addr, int port);
 
 int						verify_permission(t_client *client, char **arr);
 

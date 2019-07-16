@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 16:50:18 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 22:13:26 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:19:23 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	handle_pwd_helper(t_server *server, char **arr)
 int			handle_pwd(t_server *server, char *arg)
 {
 	char		**arr;
-	int	 		status;
+	int			status;
 
 	arr = ft_strsplit(arg, ' ');
 	status = handle_pwd_helper(server, arr);

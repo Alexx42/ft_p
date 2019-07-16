@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 16:15:03 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 17:40:52 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:30:48 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ static int				init_connection(t_client *client, unsigned short port,
 	client->sin.sin_family = AF_INET;
 	client->sin.sin_port = port;
 	client->sin.sin_addr.s_addr = s_addr;
+	return (EXIT_SUCCESS);
+}
+
+int						init_addr(t_client *client, char *addr, int port)
+{
+	client->sockfd = socket(AF_INET, SOCK_STREAM, client->proto->p_proto);
+	client->sin.sin_family = AF_INET;
+	client->sin.sin_port = htons(port);
+	client->hp = gethostbyname(addr);
+	if (client->hp)
+		client->sin.sin_addr.s_addr = inet_addr((inet_ntoa(*(struct in_addr *)
+		client->hp->h_addr_list[0])));
+	else
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 

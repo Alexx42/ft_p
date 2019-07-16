@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:33:25 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 20:54:09 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:18:52 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int			analyze_data(t_server *server, char *buff)
 	int			i;
 
 	i = -1;
-	while (++i < 5)
+	while (++i < 6)
 	{
 		if (!ft_strncmp(buff, g_handle_fun[i].cmd, g_handle_fun[i].size))
 			return (g_handle_fun[i].fn(server, buff));
@@ -59,7 +59,7 @@ static int			launch_server(t_server *server)
 	listen(server->sockfd, 42);
 	while (42)
 	{
-		server->clen = 0;
+		server->clen = sizeof(server->csin);
 		if ((server->csockfd = accept(server->sockfd,
 		(struct sockaddr *)&(server->csin),
 		&server->clen)) == -1)
