@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 23:32:23 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/15 22:29:53 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/15 22:45:38 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void		print_status(int status)
 static int		launch_client(t_client *client)
 {
 	char		buff[1024];
-	size_t		r;
+	ssize_t		r;
 	int			status;
 
 	while (42)
@@ -67,6 +67,7 @@ static int		launch_client(t_client *client)
 			buff[r - 1] = '\0';
 		else
 			break ;
+		write(client->sockfd, &r, sizeof(ssize_t));
 		write(client->sockfd, buff, r);
 		status = analyze_data(client, buff);
 		if (recv(client->sockfd, buff, 8, 0) < 0)
